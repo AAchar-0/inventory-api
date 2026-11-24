@@ -10,6 +10,22 @@
 |---|---|
 | ![Swagger page listing all endpoints of the Inventory API](docs/screenshots/swagger-overview.png) | ![Swagger response showing a 409 Conflict when selling more stock than exists](docs/screenshots/stock-conflict.png) |
 
+## Try the live demo
+
+1. Open the [Swagger page](https://inventory-api-jl5m.onrender.com). The first load can take about a minute, because the free hosting sleeps when idle.
+2. Open `POST /api/auth/register` → **Try it out**, replace the body with the example below (use your own values), and click **Execute**:
+   ```json
+   {
+     "username": "client.demo",
+     "email": "you@example.com",
+     "password": "a-long-password-here"
+   }
+   ```
+   The username needs at least 3 characters, and the password needs 10 to 72 characters.
+3. Copy the `token` from the response (without the quote marks).
+4. Scroll to the top, click **Authorize**, paste the token, and click **Authorize** and then **Close**.
+5. Try `GET /api/products` and `GET /api/products/low-stock`. Your token works for 60 minutes. Accounts made this way can read products and record stock, but only an admin can create or delete products.
+
 ## Contents
 
 - [Overview](#overview) 
