@@ -1,0 +1,23 @@
+# Build output
+target/
+*.class
+*.jar
+*.war
+
+# SECRETS: never commit these
+.env
+*.pem
+*.key
+application-local.yml
+
+# IDE and OS files
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+*.log
+
+# Generated
+HELP.md

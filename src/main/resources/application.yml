@@ -1,0 +1,39 @@
+# Default settings. They run with an in-memory H2 database so the app starts with NO setup.
+# For PostgreSQL, start the app with the "postgres" profile (see application-postgres.yml).
+spring:
+  application:
+    name: inventory-api
+  datasource:
+    # MODE=PostgreSQL makes H2 accept PostgreSQL-style SQL; DB_CLOSE_DELAY=-1 keeps the data alive while the app runs.
+    url: jdbc:h2:mem:inventory;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    open-in-view: false          # no database access while the JSON response is written
+    hibernate:
+      ddl-auto: none             # Flyway owns the schema; Hibernate must never change tables
+    properties:
+      hibernate:
+        default_batch_fetch_size: 50   # loads lazy relations in batches (avoids the N+1 query problem)
+  flyway:
+    enabled: true
+
+server:
+  port: ${PORT:8080}
+
+app:
+  jwt:
+    # Secret used to sign tokens (at least 32 characters). Set the JWT_SECRET environment variable.
+    # If empty, a random secret is generated at startup (fine for local use; tokens die on restart).
+    secret: ${JWT_SECRET:}
+    expiry-minutes: 60
+  seed:
+    # The first admin account is created at startup if it does not exist yet.
+    admin-username: admin
+    admin-email: admin@example.com
+    # Set APP_ADMIN_PASSWORD. If empty, a random password is generated and printed ONCE in the log.
+    admin-password: ${APP_ADMIN_PASSWORD:}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

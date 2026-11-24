@@ -1,0 +1,70 @@
+# Try the API from VS Code with the "REST Client" extension: click "Send Request" above each ### block.
+# Start the app first (mvn spring-boot:run). Put your admin password below, but DO NOT commit the real one.
+
+@host = http://localhost:8081
+@adminPassword = PASTE_YOUR_ADMIN_PASSWORD_HERE
+
+### 1. Log in as admin (saves the token for the requests below)
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "username": "admin", "password": "{{adminPassword}}" }
+
+###
+@token = {{login.response.body.$.token}}
+
+### 2. List categories
+GET {{host}}/api/categories
+Authorization: Bearer {{token}}
+
+### 3. Create a product (admin only). categoryId 1 = Electronics from the seed data
+# @name createProduct
+POST {{host}}/api/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "sku": "USB-C-1M",
+  "name": "USB-C cable 1m",
+  "description": "Braided charging cable",
+  "price": 6.50,
+  "quantity": 3,
+  "reorderLevel": 5,
+  "categoryId": 1
+}
+
+###
+@productId = {{createProduct.response.body.$.id}}
+
+### 4. Search products (text, category, paging, sorting)
+GET {{host}}/api/products?q=usb&page=0&size=10&sort=price&dir=desc
+Authorization: Bearer {{token}}
+
+### 5. Low stock report
+GET {{host}}/api/products/low-stock
+Authorization: Bearer {{token}}
+
+### 6. Receive stock (IN)
+POST {{host}}/api/products/{{productId}}/movements
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "type": "IN", "quantity": 50, "note": "Supplier delivery" }
+
+### 7. Sell stock (OUT). Asking for more than exists returns 409 Conflict
+POST {{host}}/api/products/{{productId}}/movements
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "type": "OUT", "quantity": 4, "note": "Sale" }
+
+### 8. Movement history for the product
+GET {{host}}/api/products/{{productId}}/movements?page=0&size=20
+Authorization: Bearer {{token}}
+
+### 9. Register a STAFF user (staff cannot create products: expect 403 later)
+POST {{host}}/api/auth/register
+Content-Type: application/json
+
+{ "username": "mary.staff", "email": "mary@example.com", "password": "a-long-staff-password" }

@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "Inventory API"
+abstract: "A Spring Boot REST API for products, categories and stock movements with JWT authentication, Flyway migrations, PostgreSQL support, automated tests and CI."
+type: software
+authors:
+  - given-names: "GIVEN NAME"
+    family-names: "FAMILY NAME"
+version: "0.1.0"
+date-released: "2026-11-24"
+license: MIT
+repository-code: "https://github.com/AAchar-0/inventory-api"
+keywords:
+  - java
+  - spring-boot
+  - rest-api
+  - jwt
+  - postgresql
