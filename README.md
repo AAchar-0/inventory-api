@@ -2,7 +2,7 @@
 
 > A Java and Spring Boot REST API that manages products, categories and stock movements. It uses JWT login with two roles, keeps its database schema in versioned migrations, prevents overselling with a row lock, and is checked by automated tests on every push.
 
-<!-- LIVE-LINK -->
+**LIVE-APP:** [inventory-api](https://inventory-api-jl5m.onrender.com/swagger-ui.html)
 **Source code:** [github.com/AAchar-0/inventory-api](https://github.com/AAchar-0/inventory-api)
 **Author:** [Anade A’Acharo](https://aachar-0.github.io/)
 
