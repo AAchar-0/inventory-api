@@ -12,7 +12,7 @@
 
 ## Contents
 
-- [Overview](#overview)
+- [Overview](#overview) 
 - [Key features](#key-features)
 - [Endpoints](#endpoints)
 - [Design decisions](#design-decisions)
