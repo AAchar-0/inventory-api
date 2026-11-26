@@ -89,6 +89,11 @@ public class HomeController {
               {{STYLE}}
               <style>
                 #swagger-ui { flex:1; background:#ffffff; }   /* Swagger UI is designed for a white background */
+               @media (prefers-color-scheme: dark) {
+                  #swagger-ui { background:#101a24; }   /* same colour as the page */
+                  #swagger-ui .swagger-ui { filter: invert(88%) hue-rotate(180deg); }   /* turns the light Swagger UI dark */
+                  #swagger-ui .swagger-ui .microlight { filter: invert(100%) hue-rotate(180deg); }   /* puts code boxes back */
+                }
               </style>
             </head>
             <body>
